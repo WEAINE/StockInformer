@@ -1,0 +1,66 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockInformer"
+        xmlns:ams="http://schemas.amcharts.com/stock/wpf/2009/xaml" x:Class="StockInformer.SingleStockDisplayWindow"
+        mc:Ignorable="d"
+        Title="StockInformer - 单股展示" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid Height="25" Width="800" VerticalAlignment="Top" Background="#2D2D30">
+            <Button Name="Line" Width="50" Height="24" HorizontalAlignment="Left" Background="#2D2D30" Foreground="WhiteSmoke" FontSize="10" FontFamily="微软雅黑" BorderThickness="0" IsEnabled="False" Click="Line_Click">分时</Button>
+            <Button Name="Candlestick" Width="50" Height="24" Margin="50,0,0,0" HorizontalAlignment="Left" Background="#2D2D30" Foreground="WhiteSmoke" FontSize="10" FontFamily="微软雅黑" BorderThickness="0" Click="Candlestick_Click">K线</Button>
+        </Grid>
+        <Grid Height="412.5" Width="600" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" Background="#2D2D30">
+            <TextBlock Name="Loading" Text="加载中..." Panel.ZIndex="1024" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="WhiteSmoke" FontSize="35" FontFamily="微软雅黑"></TextBlock>
+            <ams:StockChart Name="StockCharts" Height="400" Foreground="WhiteSmoke" FontSize="10" >
+                <ams:StockChart.DataSets>
+                    <ams:DataSet Name="StockDataSet" Brush="#7F8DA9" ItemsSource="{Binding}"
+                                 DateMemberPath="Date" OpenMemberPath="Open" HighMemberPath="High" LowMemberPath="Low" CloseMemberPath="Close" ValueMemberPath="Close" VolumeMemberPath="Volume" />
+                </ams:StockChart.DataSets>
+                <ams:StockChart.Charts>
+                    <ams:Chart></ams:Chart>
+                    <ams:Chart Name="StockChart" Title="分时" PlotAreaBackground="#2D2D30">
+                        <ams:Graph Name="StockGraph" GraphType="Line"></ams:Graph>
+                        <ams:Chart.Legend>
+                            <ams:Legend IsDateVisible="True"></ams:Legend>
+                        </ams:Chart.Legend>
+                    </ams:Chart>
+                </ams:StockChart.Charts>
+            </ams:StockChart>
+        </Grid>
+        <Grid Height="412.5" Width="197.5" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,0,0" Background="#2D2D30">
+            <TextBlock  x:Name="StockCode" Text="{Binding}" Height="35" VerticalAlignment="Top" TextAlignment="Center" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="30"/>
+            <TextBlock  x:Name="StockName" Text="{Binding}" Height="35" VerticalAlignment="Top" TextAlignment="Center" Margin="0,35,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="30"/>
+            <TextBlock Text="价格" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockPrice"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,90,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="涨跌" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,110,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockIncrease"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,110,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="今开" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockOpenPrice"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,130,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="昨收" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockClosePrice"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,150,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="买一" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,170,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockBuyOne"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,170,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="买二" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,190,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockBuyTwo"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,190,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="买三" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,210,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockBuyThree"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,210,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="买四" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,230,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockBuyFour"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,230,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="买五" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,250,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockBuyFive"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,250,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="卖一" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,270,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockSellOne"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,270,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="卖二" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,290,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockSellTwo"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,290,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="卖三" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,310,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockSellThree"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,310,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="卖四" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,330,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockSellFour"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,330,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock Text="卖五" Height="20" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,350,0,0" Background="#2D2D30" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+            <TextBlock x:Name="StockSellFive"  Text="{Binding}" Height="20" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Margin="0,350,10,0" Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="15"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,86 @@
+﻿<Window x:Class="StockInformer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockInformer"
+        mc:Ignorable="d"
+        Title="StockInformer" Height="900" Width="1600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" KeyDown="Window_KeyDown">
+    <Grid>
+        <Grid Height="25" Width="1600" VerticalAlignment="Top" Background="#2D2D30">
+            <Button Name="All" Height="25" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" Click="All_Click">全部股票</Button>
+            <Button Name="SZ_Switcher" Height="25" Width="100" HorizontalAlignment="Left" Margin="100,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" Click="SZ_Switcher_Click">深证股票</Button>
+            <Button Name="SH_Switcher" Height="25" Width="100" HorizontalAlignment="Left" Margin="200,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" Click="SH_Switcher_Click">上证股票</Button>
+            <Button Name="Formulars_Manager" Height="25" Width="100" HorizontalAlignment="Left" Margin="300,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" Click="Formulars_Manager_Click">公式管理</Button>
+            <Button Name="RefreshStocks" Height="25" Width="100" HorizontalAlignment="Left" Margin="400,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" Click="RefreshStocks_Click">更新数据</Button>
+            <TextBox Name="SearchContent" Height="19" Width="200" HorizontalAlignment="Right" Margin="0,3,110,3" FontFamily="微软雅黑" FontSize="15" Foreground="Gray" Text="股票代码或名称" BorderThickness="0" GotFocus="SearchContent_GotFocus" KeyDown="SearchContent_KeyDown"></TextBox>
+            <Button Name="Search" Height="19" Width="80" HorizontalAlignment="Right" Margin="0,3,30,3" FontFamily="微软雅黑" FontSize="12" Background="#2D2D30" Foreground="WhiteSmoke" BorderThickness="0" Click="Search_Click">搜索</Button>
+        </Grid>
+        <Grid Height="825" Width="1200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" Background="#2D2D30">
+            <DataGrid Name="MainList" Width="1180" Foreground="#2D2D30" ItemsSource="{Binding}" MouseDoubleClick="MainList_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="代码" Width="90" Binding="{Binding Code}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="名称" Width="90" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="涨幅" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding IncreaseRate}" Background="#2D2D30" Foreground="{Binding Color}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="现价" Width="90" Binding="{Binding Price}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="涨跌" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Increase}" Background="#2D2D30" Foreground="{Binding Color}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="买价" Width="90" Binding="{Binding BidBuy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="卖价" Width="90" Binding="{Binding BidSell}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="总量" Width="105" Binding="{Binding Turnover}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="现量" Width="95" Binding="{Binding Volume}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="今开" Width="85" Binding="{Binding Open}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="昨收" Width="85" Binding="{Binding Close}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="最高" Width="85" Binding="{Binding High}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="最低" Width="*" Binding="{Binding Low}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Height="300" Width="395" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,0,0" Background="#2D2D30">
+            <Button Name="SZImage" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" IsEnabled="False" Click="SZImage_Click">深证成指</Button>
+            <Button Name="SHImage" Height="25" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" FontFamily="微软雅黑" Background="#2D2D30" Foreground="WhiteSmoke" IsEnabled="True" Click="SHImage_Click">上证综指</Button>
+            <RadioButton Name="DailyChart" Content="日线图" Height="25" Width="80" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="230,1,0,0" FontFamily="微软雅黑" Background="WhiteSmoke" Foreground="WhiteSmoke" IsChecked="True" Click="DailyChart_Click"></RadioButton>
+            <RadioButton Name="KLine" Content="K线图" Height="25" Width="80" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Margin="310,1,0,0" FontFamily="微软雅黑" Background="WhiteSmoke" Foreground="WhiteSmoke" IsChecked="False" Click="KLine_Click"></RadioButton>
+            <Image Name="Chart" Source="{Binding}" VerticalAlignment="Center" Margin="0,40,0,0"></Image>
+        </Grid>
+        <Grid Height="300" Width="395" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,325,0,0" Background="#2D2D30">
+            <DataGrid Name="NewsList" Width="380" Foreground="#2D2D30" ItemsSource="{Binding}" VerticalAlignment="Center" Margin="10,0,0,0">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="新闻资讯" Width="380">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="390" FontFamily="微软雅黑" FontSize="15" TextAlignment="Left">
+                                    <Hyperlink NavigateUri="{Binding URL}" RequestNavigate="Hyperlink_RequestNavigate">
+                                        <TextBlock Text="{Binding Title}"></TextBlock>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Height="250" Width="395" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,625,0,0" Background="#2D2D30">
+            <TextBlock Width="300" TextAlignment="Center" VerticalAlignment="Center" Foreground="WhiteSmoke" FontFamily="Lucida Console" FontSize="15">
+                StockInformer<LineBreak/><LineBreak/>
+                Alpha Version<LineBreak/>
+                Developed by WEAINE<LineBreak/>
+                mailto: weaine@weaine.com
+            </TextBlock>
+        </Grid>
+        <Grid Height="25" Width="1600" VerticalAlignment="Top" Margin="0,850,0,0" Background="#2D2D30">
+            <ProgressBar Name="RefreshProgress" Height="5" Width="1600" HorizontalAlignment="Right" Margin="0,0,0,0"></ProgressBar>
+        </Grid>
+    </Grid>
+</Window>

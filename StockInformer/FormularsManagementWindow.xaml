@@ -1,0 +1,15 @@
+﻿<Window x:Class="StockInformer.FormularsManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockInformer"
+        mc:Ignorable="d"
+       Title="StockInformer - 公式管理" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="#2D2D30">
+        <TextBlock Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="20" Margin="10,10,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">ABI - 绝对广量指标<LineBreak/>ABI:100*<Span Foreground="Blue">ABS</Span>(<Span Foreground="Green">ADVANCE</Span>-<Span Foreground="Green">DECLINE</Span>)/(<Span Foreground="Green">ADVANCE</Span>+<Span Foreground="Green">DECLINE</Span>);</TextBlock>
+        <TextBlock Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="20" Margin="10,90,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">TBR - 指数平滑广量<LineBreak/>TBR:100*<Span Foreground="Green">ADVANCE</Span>/(<Span Foreground="Green">ADVANCE</Span>+<Span Foreground="Green">DECLINE</Span>);</TextBlock>
+        <TextBlock Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="20" Margin="10,170,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">VV - 变异平均<LineBreak/>VV:=(<Span Foreground="Green">HIGH</Span>+<Span Foreground="Green">OPEN</Span>+<Span Foreground="Green">LOW</Span>+<Span Foreground="Green">CLOSE)</Span>/4;</TextBlock>
+        <TextBlock Foreground="WhiteSmoke" FontFamily="微软雅黑" FontSize="20" Margin="10,250,0,0" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left">AMOV - 成本价均<LineBreak/>AMOV:=<Span Foreground="Green">VOL</Span>*(<Span Foreground="Green">OPEN</Span>+<Span Foreground="Green">CLOSE</Span>)/2;</TextBlock>
+    </Grid>
+</Window>
